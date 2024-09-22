@@ -1,0 +1,147 @@
+create database 20231115people
+============
+create table person (
+   id int auto_increment primary key,
+   name varchar(15),
+   surname1 varchar(15),
+   surname2 varchar(15),
+   fname varchar(15),
+   nname varchar(15)
+);
+
+insert into person 
+(name) values
+("Teresa"),("Theresa"),("Toni"),
+("Tonhi"),("Theresa"),("Teresa"),
+("Toni"),("Toni"),("Toni"),("Theresa");
+
+select * from person where name="Teresa";
+select * from person where name like "To%";
+select count(name) from person where name="Teresa";
+select name, count(name) from person group by name;
+
+==== 
+Cleaning ...
+
+update person 
+  set name="Theresa" where name="Teresa";
+update person
+  set name="Toni" where name="Tonhi";
+
+===========
+DOUBLEFUNC(a int) -> double
+
+delimiter //
+create function doublefunc(a int)
+returns int
+begin
+   declare dob int;
+   set dob = a*2;
+   return dob;
+end;
+----> select doublefunc(5);
+
+
+delimiter //
+create function fatherof(child int)
+returns char(15)
+begin
+   declare localvar, solution varchar(15);
+   declare final int;
+   DECLARE varcursor CURSOR FOR SELECT fname from person where id=child;
+   declare continue handler for not found set final=1;
+
+   set final=0;
+   OPEN varcursor;
+   theloop: LOOP
+      FETCH varcursor INTO localvar;
+      IF final=1 THEN 
+         LEAVE theloop;
+      END IF;
+      set solution = localvar;
+    END LOOP;
+   CLOSE varcursor;
+   return solution;
+end;
+
+select fatherof(3);
+
+============
+Create a function that splits a person 
+generating a child and the parents (family)
+
+>>>> select split(3)
+
+create table child (
+   id int,
+   name varchar(15),
+   surname1 varchar(15),
+   surname2 varchar(15)
+);
+create table family (
+   fname varchar(15),
+   fsurname varchar(15),
+   mname varchar(15),
+   msurname varchar(15)
+)
+
+delimiter //
+create procedure split (in childnumber int)
+begin
+   declare lname,lsurname1,lsurname2,lfname,lnname char(15);
+   declare lid,final int;
+   declare varc cursor for
+          select id,name,surname1,surname2,fname,nname 
+          from person where id=childnumber;
+   declare continue handler for not found set final=1;
+  
+   set final=0;
+   OPEN varc;
+   theloop: LOOP
+      FETCH varc INTO lid,lname,lsurname1,lsurname2,lfname,lnname;
+      IF final=1 THEN 
+         LEAVE theloop;
+      END IF;    
+      insert into family (fname,fsurname,mname,msurname) values
+                        (lfname,lsurname1,lnname,lsurname2);
+      insert into child (id,name,surname1,surname2) values
+                        (lid,lname,lsurname1,lsurname2);   
+   END loop;
+   close varc;  
+end;
+
+>>>> call split(3)
+
+insert into person (name,surname1) values ("Teresa","Adrover")
+SET l_account_id = LAST_INSERT_ID();
+
+delimiter //
+create procedure splitall ()
+begin
+   declare lname,lsurname1,lsurname2,lfname,lnname char(15);
+   declare lid,final int;
+   declare varc cursor for
+          select id,name,surname1,surname2,fname,nname 
+          from person;
+   declare continue handler for not found set final=1;
+  
+   set final=0;
+   OPEN varc;
+   theloop: LOOP
+      FETCH varc INTO lid,lname,lsurname1,lsurname2,lfname,lnname;
+      IF final=1 THEN 
+         LEAVE theloop;
+      END IF;    
+      insert into family (fname,fsurname,mname,msurname) values
+                        (lfname,lsurname1,lnname,lsurname2);
+      insert into child (id,name,surname1,surname2) values
+                        (lid,lname,lsurname1,lsurname2);   
+   END loop;
+   close varc;  
+end;
+
+>>>>> call splitall();
+
+
+
+

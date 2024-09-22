@@ -1,0 +1,169 @@
+CREATE TABLE child (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    surname1 VARCHAR(255),
+    surname2 VARCHAR(255),
+    father_name VARCHAR(255),
+    father_surname1 VARCHAR(255),
+    #father_surname2 VARCHAR(255),
+    mother_name VARCHAR(255),
+    mother_surname1 VARCHAR(255)
+    #mother_surname2 VARCHAR(255)
+);
+
+CREATE TABLE family (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    father_name VARCHAR(255),
+    father_surname1 VARCHAR(255),
+    father_surname2 VARCHAR(255),
+    father_grandfather_name VARCHAR(255),
+	father_grandfather_surname1 VARCHAR(255),
+    father_grandmother_name VARCHAR(255),
+	father_grandmother_surname1 VARCHAR(255),
+    mother_name VARCHAR(255),
+    mother_surname1 VARCHAR(255),
+    mother_surname2 VARCHAR(255),
+    mother_grandfather_name VARCHAR(255),
+	mother_grandfather_surname1 VARCHAR(255),
+    mother_grandmother_name VARCHAR(255),
+	mother_grandmother_surname1 VARCHAR(255)
+);
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE SplitDataToTables()
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE child_id INT;
+    DECLARE child_name VARCHAR(255);
+    DECLARE child_surname1 VARCHAR(255);
+    DECLARE child_surname2 VARCHAR(255);
+    DECLARE father_name VARCHAR(255);
+    DECLARE father_surname1 VARCHAR(255);
+    DECLARE father_surname2 VARCHAR(255);
+    DECLARE mother_name VARCHAR(255);
+    DECLARE mother_surname1 VARCHAR(255);
+    DECLARE mother_surname2 VARCHAR(255);
+    DECLARE father_grandfather_name VARCHAR(255);
+    DECLARE father_grandfather_surname1 VARCHAR(255);
+    DECLARE father_grandmother_name VARCHAR(255);
+    DECLARE father_grandmother_surname1 VARCHAR(255);
+    DECLARE mother_grandfather_name VARCHAR(255);
+    DECLARE mother_grandfather_surname1 VARCHAR(255);
+    DECLARE mother_grandmother_name VARCHAR(255);
+    DECLARE mother_grandmother_surname1 VARCHAR(255);
+    
+    DECLARE cur CURSOR FOR 
+    SELECT 
+        id, 
+        name, 
+        surname1, 
+        surname2, 
+        fathername, 
+        fathersurname1, 
+        fathersurname2, 
+        mothername, 
+        mothersurname1, 
+        mothersurname2, 
+        father_grandfathername, 
+        father_grandfather_surname1, 
+        father_grandmothername, 
+        father_grandmother_surname1, 
+        mother_grandfathername, 
+        mother_grandfather_surname1, 
+        mother_grandmothername, 
+        mother_grandmother_surname1 
+    FROM people_table;
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN cur;
+
+    read_loop: LOOP
+        FETCH cur INTO 
+            child_id, 
+            child_name, 
+            child_surname1, 
+            child_surname2, 
+            father_name, 
+            father_surname1, 
+            father_surname2, 
+            mother_name, 
+            mother_surname1, 
+            mother_surname2, 
+            father_grandfather_name, 
+            father_grandfather_surname1, 
+            father_grandmother_name, 
+            father_grandmother_surname1, 
+            mother_grandfather_name, 
+            mother_grandfather_surname1, 
+            mother_grandmother_name, 
+            mother_grandmother_surname1;
+            
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- Insert data into child table
+        INSERT INTO child (
+            name, 
+            surname1, 
+            surname2, 
+            father_name, 
+            father_surname1, 
+            mother_name, 
+            mother_surname1
+        )
+        VALUES (
+            child_name, 
+            child_surname1, 
+            child_surname2, 
+            father_name, 
+            father_surname1, 
+            mother_name, 
+            mother_surname1
+        );
+
+        -- Insert data into family table
+        INSERT INTO family (
+            father_name,
+            father_surname1,
+            father_surname2,
+            father_grandfather_name,
+            father_grandfather_surname1,
+            father_grandmother_name,
+            father_grandmother_surname1,
+            mother_name,
+            mother_surname1,
+            mother_surname2,
+            mother_grandfather_name,
+            mother_grandfather_surname1,
+            mother_grandmother_name,
+            mother_grandmother_surname1
+        )
+        VALUES (
+            father_name,
+            father_surname1,
+            father_surname2,
+            father_grandfather_name,
+            father_surname1,
+            father_grandmother_name,
+            father_surname2,
+            mother_name,
+            mother_surname1,
+            mother_surname2,
+            mother_grandfather_name,
+            mother_surname1,
+            mother_grandmother_name,
+            mother_surname2
+        );
+    END LOOP;
+
+    CLOSE cur;
+END //
+
+DELIMITER ;
+
+
