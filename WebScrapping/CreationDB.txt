@@ -1,0 +1,18 @@
+create database Exercise6;
+
+CREATE TABLE PAGES (
+    page_id INT PRIMARY KEY AUTO_INCREMENT,
+    url VARCHAR(255) NOT NULL,
+    title TEXT
+);
+
+CREATE TABLE KEYWORDS (
+    keyword_id INT PRIMARY KEY AUTO_INCREMENT,
+    keyword VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE PAGE_KEYWORDS (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    url VARCHAR(255),
+    keyword VARCHAR(255)
+);
