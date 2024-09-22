@@ -1,0 +1,49 @@
+===============================================
+===============================================
+
+
+
+CREATE database FinalProject
+
+
+
+===============================================
+===============================================
+
+
+CREATE TABLE Url (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(100),
+    title VARCHAR(100),
+    scraped CHAR(1),
+    splitted CHAR(1)
+);
+
+CREATE TABLE Keywords (
+    url_id INT(11),
+    keyword VARCHAR(20)
+);
+
+CREATE TABLE Superfluous (
+    word VARCHAR(25)
+);
+
+CREATE TABLE Changes (
+    original VARCHAR(20),
+    final VARCHAR(20)
+);
+
+
+===============================================
+===============================================
+
+https://as.com/
+https://www.marca.com/
+https://www.mundodeportivo.com/
+https://www.sport.es/es/
+https://es.kiosko.net/es/sport.html
+https://www.relevo.com/
+https://www.sportyou.es/
+https://www.superdeporte.es/
+https://www.estadiodeportivo.com/
+https://www.diariogol.com/
