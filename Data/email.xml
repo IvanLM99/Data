@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exercise3>
+	<email>
+		<sender>ivan@example.com</sender>
+		<title>Exercise 3</title>
+		<date>05/10/2023</date>
+		<content>I have already submitted the files for exercise 3</content>
+		<attachments>
+    		<file></file>
+    	</attachments>
+		<receivers>
+			<to>professor1@example.com</to>
+			<to>professor2@example.com</to>
+			<cc>professor3@example.com</cc>			
+			<cs>professor4@example.com</cs>
+		</receivers>
+	</email>
+	<email>
+		<sender>ivan@example.com</sender>
+		<title>Lunch recipe for tomorrow</title>
+		<date>07/10/2023</date>
+		<content>hi mum</content>
+		<attachments>
+    		<file>cakerecipe.jpg</file>
+    		<file>sushi.pdf</file>
+    	</attachments>
+		<receivers>
+			<to>mum@example.com</to>
+			<cc></cc>			
+			<cs></cs>
+		</receivers>
+	</email>
+	<email>
+		<sender>ivan@example.com</sender>
+		<title>Party for tomorrow</title>
+		<date>06/10/2023</date>
+		<content>I send you the invtations</content>
+		<attachments>
+    		<file>invitationME.jpg</file>
+    		<file>invitation1.jpg</file>
+    		<file>invitation2.jpg</file>
+    	</attachments>
+		<receivers>
+			<to>friend1@example.com</to>
+			<to>friend2@example.com</to>
+			<cc>ivan@example.com</cc>	
+			<cc>friend3@example.com</cc>		
+			<cs>friend4@example.com</cs>
+			<cs>friend5@example.com</cs>
+		</receivers>
+	</email>
+</exercise3>

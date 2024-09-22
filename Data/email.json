@@ -1,0 +1,77 @@
+{
+    "email": [
+        {
+            "sender": "ivan@example.com",
+            "title": "Exercise 3",
+            "date": "05/10/2023",
+            "content": "I have already submitted the files for exercise 3",
+            "attachments": {
+                "file": [
+                    null
+                ]
+            },
+            "receivers": {
+                "to": [
+                    "professor1@example.com",
+                    "professor2@example.com"
+                ],
+                "cc": [
+                    "professor3@example.com"
+                ],
+                "cs": [
+                    "professor4@example.com"
+                ]
+            }
+        },
+        {
+            "sender": "ivan@example.com",
+            "title": "Lunch recipe for tomorrow",
+            "date": "07/10/2023",
+            "content": "hi mum",
+            "attachments": {
+                "file": [
+                    "cakerecipe.jpg",
+                    "sushi.pdf"
+                ]
+            },
+            "receivers": {
+                "to": [
+                    "mum@example.com"
+                ],
+                "cc": [
+                    null
+                ],
+                "cs": [
+                    null
+                ]
+            }
+        },
+        {
+            "sender": "ivan@example.com",
+            "title": "Party for tomorrow",
+            "date": "06/10/2023",
+            "content": "I send you the invtations",
+            "attachments": {
+                "file": [
+                    "invitationME.jpg",
+                    "invitation1.jpg",
+                    "invitation2.jpg"
+                ]
+            },
+            "receivers": {
+                "to": [
+                    "friend1@example.com",
+                    "friend2@example.com"
+                ],
+                "cc": [
+                    "ivan@example.com",
+                    "friend3@example.com"
+                ],
+                "cs": [
+                    "friend4@example.com",
+                    "friend5@example.com"
+                ]
+            }
+        }
+    ]
+}
